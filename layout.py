@@ -22,4 +22,13 @@ content.columnconfigure(0, weight=1)
 content.columnconfigure(1, weight=1)
 content.columnconfigure(2, weight=1)
 
+
+for w in content.grid_slaves(): print(w) # row=, col=
+print(content.grid_info())
+#content.grid_configure(sticky=(E,W))
+
+"""
+l01_11.grid_remove() # removes the widget from the grid, but remembers the options
+l20_21_22.forget() # removes the widget from the grid
+"""
 root.mainloop()
