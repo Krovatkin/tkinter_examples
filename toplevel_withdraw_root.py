@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk # new themed widgets
 root = Tk()
-t = Toplevel(root)
+t = Toplevel(root) # screen= to draw a window in
 
 # until a window is redrawn `print(t.geometry())`
 # gives the old value 
@@ -65,9 +65,31 @@ print(root.tk.eval('wm stackorder '+str(t)+' isabove '+str(root)))
 """
 print(root.tk.eval('wm stackorder '+str(root)))
 
+
 # Stacking order applies for any sibling widgets
+
+"""
+!!! Screen Information
+"""
+
+print("color.depth=" + str(root.winfo_screendepth())+ " (" + root.winfo_screenvisual() + ")")
+print("pixels.per.inch=" + str(root.winfo_pixels('1i')))
+print("width=", str(root.winfo_screenwidth()) + ".height=", str(root.winfo_screenheight()))
+
+# how big the entire display spanning multiple monitors
+print(root.wm_maxsize())
+
+# to determine which screen a window is on
+print(root.winfo_screen())
 
 # the default close button on `Toplevel`
 # would still keep `root` running
 t.protocol("WM_DELETE_WINDOW", close)
 root.mainloop()
+
+"""
+If you ask for its position, it will be relative to the primary monitor. 
+if you call `winfo_x` on a window positioned near the left edge of a monitor, 
+it might return 100 if it’s on the primary monitor,
+or -1820 if it’s on a monitor to the left of the primary
+"""
