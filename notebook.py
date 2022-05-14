@@ -17,5 +17,10 @@ f2.rowconfigure(index=0, weight=1)
 f2.columnconfigure(index=0, weight=1)
 f2.grid()
 n.add(f1, text='One')
-n.add(f2, text='Two')
+n.add(f2, text='Two') # , state=['disabled']
+n.select(1) # switch to the tab by index
+n.select(n.select()) # switch to the sibwindow
+print(n.select())
+n.tab(0, text='OneOne')
+n.bind("<<NotebookTabChanged>>", lambda args: print(F"Tab has changed {args}"))
 root.mainloop()
