@@ -66,6 +66,9 @@ print(t.tag_ranges('highlightline')) # (<string object: '1.2'>, <string object: 
 print(t.tag_nextrange('highlightline', '1.3', '1.5'))
 print(t.tag_names()) # returns list of tags
 
+# elide hides the text
+#t.tag_configure('highlightline', elide=True)
+
 # tagname.first or tagname.last can be used in lieu indices
 t.tag_bind('highlightline', '<1>', lambda x: messagebox.showinfo("Hi", f"Clicked on {x}"))
 t.bind('<<Modified>>', lambda x: print(f"Modified {x}")) # doesn't seem to work very well
@@ -93,8 +96,41 @@ print(mark_name)
 t.mark_gravity('mark1', 'left') # which way the mark moves after insertion
 t.mark_unset('mark1', '1.1')
 
+# !!!! Images, Widgets
 
+# setting w/h doesn't resize the image, but just cuts it off at those values
+flowers = PhotoImage(file='telegram.png', width=30, height=30)
+t.image_create('end', image=flowers)
+
+b = ttk.Button(t, text='Push.Me')
+t.window_create('1.0', window=b)
+
+# !!! Search, Modifications, Undo, Redo
+
+print(t.search('ara', '1.0'))
+print(f"edit_modified = {t.edit_modified()}")
+print(t.edit_undo()) # t.edit_redo()
+
+# !!! Introspection 
+
+print(f"debug={t.debug(True)}")
+print(f"dlineinfo = {t.dlineinfo('1.0')}") # gives the bounding box for a char
+
+# Valid counting options are "chars", "displaychars", "displayindices", 
+# "displaylines", "indices", "lines", "xpixels" and "ypixels"
+print(f"bbox= {t.bbox('1.0')} count={t.count('1.0', '1.2', 'displaychars')}")
+# 'all', 'image', 'mark', 'tag', 'text', or 'window'
+print(f"dump={t.dump('1.0', '1.2', 'text')}")
 root.mainloop()
+
+
+
+
+"""
+The Tk text widget allows the same underlying text data structure 
+(containing all the text, marks, tags, images, etc.) to be shared 
+between two or more different text widgets. This is known as peering 
+"""
 
 """
 
