@@ -67,6 +67,33 @@ print(t.tag_nextrange('highlightline', '1.3', '1.5'))
 print(t.tag_names()) # returns list of tags
 
 # tagname.first or tagname.last can be used in lieu indices
+t.tag_bind('highlightline', '<1>', lambda x: messagebox.showinfo("Hi", f"Clicked on {x}"))
+t.bind('<<Modified>>', lambda x: print(f"Modified {x}")) # doesn't seem to work very well
+
+
+# Text Selection
+
+def show_sel_ranges(x):
+    r = t.tag_ranges('sel')
+    print(f"selection = {r[0]} {r[1]}")
+
+t.tag_add('sel', '1.0', '1.2') # this doesn't seem to visually highlight text?
+t.bind('<<Selection>>', show_sel_ranges)
+
+# !!! Marks
+# marks are always in between chars
+# default marks: current, insert
+
+t.mark_set('mark1', '1.1')
+
+# marks can be used as indices
+
+mark_name = t.mark_next('1.0')
+print(mark_name)
+t.mark_gravity('mark1', 'left') # which way the mark moves after insertion
+t.mark_unset('mark1', '1.1')
+
+
 root.mainloop()
 
 """
