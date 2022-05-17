@@ -46,6 +46,27 @@ you can specify this as, e.g., `1.0 + 2 display lines`
 
 # Valid operators are ==, !=, <, <=, >, and >=
 print(t.compare('end', "==", 'end'))
+
+# !!!! Tags !!!!
+
+t.tag_add('highlightline', '1.0', '1.5')
+t.tag_configure('highlightline', background='yellow', font='TkFixedFont', relief='raised')
+# tag formatting options:
+"""
+background, bgstipple, borderwidth, elide, fgstipple, font, foreground, justify, lmargin1, 
+lmargin2, offset, overstrike, relief, rmargin, spacing1, spacing2, spacing3, tabs, 
+tabstyle, underline, and wrap
+"""
+
+print(t.tag_cget("highlightline", "background"))
+t.tag_delete('tag1', 'tag2')
+# keeps the tag for chars outside the remove range
+t.tag_remove('highlightline', '1.0', '1.2')
+print(t.tag_ranges('highlightline')) # (<string object: '1.2'>, <string object: '1.5'>)
+print(t.tag_nextrange('highlightline', '1.3', '1.5'))
+print(t.tag_names()) # returns list of tags
+
+# tagname.first or tagname.last can be used in lieu indices
 root.mainloop()
 
 """
