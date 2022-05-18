@@ -2,8 +2,10 @@ from tkinter import *
 from tkinter import ttk
 root = Tk()
 
-tree = ttk.Treeview(root, columns=('name', 'size'))
+tree = ttk.Treeview(root, columns=('name', 'size'), height=2)
 tree['columns'] = ('name', 'size', 'owner')
+
+tree.grid(row=0, column=0)
 
 # anchor == alignment
 tree.column('size', width=100, anchor='center')
@@ -13,6 +15,9 @@ tree.heading('size', text='Size')
 tree.heading('name', text='Name')
 tree.heading('owner', text='Owner')
 
+s = ttk.Scrollbar(root, orient=VERTICAL, command=tree.yview)
+s.grid(row=0, column=1, sticky=(N,S))
+tree.configure(yscrollcommand=s.set)
 
 
 tree.grid()
@@ -65,5 +70,9 @@ tree.tag_bind('ttk', '<1>', itemClicked)
 tree.bind("<<TreeviewSelect>>", lambda x : print(f"TreeviewSelect={x}" + str(tree.selection())))
 tree.bind("<<TreeviewOpen>>", lambda x : print(f"TreeviewOpen={x}"))
 tree.bind("<<TreeviewClose>>", lambda x : print(f"TreeviewClose={x}"))
+
+# !!!! Customizing the Display
+
+
 
 root.mainloop()
