@@ -35,6 +35,8 @@ tree.move('widgets', 'gallery', 'end')
 list_id = tree.insert('', 'end', text='Listbox', values=('Listbox', '777kb', 'John'))
 print(list_id)
 
+
+
 # removes from the tree
 # can be reinserted with move
 # tree.detach('widgets')
@@ -43,6 +45,25 @@ tree.item('gallery', open=TRUE)
 isopen = tree.item('gallery', 'open')
 
 
+# !!!! Appearance
 
+"""
+Like the text and canvas widgets, the treeview widget uses tags to modify
+the appearance of items in the tree.
+"""
+
+def itemClicked(e):
+    print(tree.focus())
+
+tree.item('gallery', tags=("ttk",))
+tree.insert('', 'end', text='button', tags=('ttk', 'simple'))
+tree.tag_configure('ttk', background='yellow')
+tree.tag_bind('ttk', '<1>', itemClicked)
+
+# !!!! Virtual Events
+
+tree.bind("<<TreeviewSelect>>", lambda x : print(f"TreeviewSelect={x}" + str(tree.selection())))
+tree.bind("<<TreeviewOpen>>", lambda x : print(f"TreeviewOpen={x}"))
+tree.bind("<<TreeviewClose>>", lambda x : print(f"TreeviewClose={x}"))
 
 root.mainloop()
