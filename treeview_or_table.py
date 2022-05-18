@@ -2,7 +2,11 @@ from tkinter import *
 from tkinter import ttk
 root = Tk()
 
-tree = ttk.Treeview(root, columns=('name', 'size'), height=2)
+tree = ttk.Treeview(root, columns=('name', 'size'), 
+    height=3, # 3 rows
+    # displaycolumns=('name',),
+    selectmode='browse' # extended
+)
 tree['columns'] = ('name', 'size', 'owner')
 
 tree.grid(row=0, column=0)
@@ -70,9 +74,5 @@ tree.tag_bind('ttk', '<1>', itemClicked)
 tree.bind("<<TreeviewSelect>>", lambda x : print(f"TreeviewSelect={x}" + str(tree.selection())))
 tree.bind("<<TreeviewOpen>>", lambda x : print(f"TreeviewOpen={x}"))
 tree.bind("<<TreeviewClose>>", lambda x : print(f"TreeviewClose={x}"))
-
-# !!!! Customizing the Display
-
-
 
 root.mainloop()
